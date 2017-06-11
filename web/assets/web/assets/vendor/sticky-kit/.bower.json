@@ -1,0 +1,27 @@
+{
+  "name": "sticky-kit",
+  "homepage": "http://leafo.net/sticky-kit/",
+  "authors": [
+    "leaf corcoran <leafot@gmail.com>"
+  ],
+  "description": "A jQuery plugin for making smart sticky elements",
+  "main": "dist/sticky-kit.js",
+  "keywords": [
+    "sticky"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "site",
+    "test"
+  ],
+  "_release": "1a3dd22d0d",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "1a3dd22d0d1a5b7b54640c0f602aee025bc650ef"
+  },
+  "_source": "git://github.com/leafo/sticky-kit.git",
+  "_target": "master",
+  "_originalSource": "git://github.com/leafo/sticky-kit"
+}

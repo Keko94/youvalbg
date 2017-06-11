@@ -1,0 +1,60 @@
+{% if pageCount > 1 %}
+
+    <div class="nk-pagination nk-pagination-{% if position is defined %}{{ position }}{% else %}center{% endif %}">
+
+        {% if previous is defined %}
+            <a rel="prev" href="{{ path(route, query|merge({(pageParameterName): previous})) }}" class="nk-pagination-prev">
+                <span class="ion-ios-arrow-back"></span>
+            </a>
+        {% else %}
+            <a rel="prev" href="#" class="nk-pagination-prev disabled">
+                <span class="ion-ios-arrow-back"></span>
+            </a>
+        {% endif %}
+
+        <nav>
+
+            {% if startPage > 1 %}
+                <a href="{{ path(route, query|merge({(pageParameterName): 1})) }}">1</a>
+                {% if startPage == 3 %}
+                    <a href="{{ path(route, query|merge({(pageParameterName): 2})) }}">2</a>
+                {% elseif startPage != 2 %}
+                    <span class="disabled">...</span>
+                {% endif %}
+            {% endif %}
+
+
+            {% for page in pagesInRange %}
+                {% if page != current %}
+                    <a href="{{ path(route, query|merge({(pageParameterName): page})) }}">{{ page }}</a>
+                {% else %}
+                    <a class="nk-pagination-current" href="#">{{ page }}</a>
+                {% endif %}
+            {% endfor %}
+
+            {% if pageCount > endPage %}
+                {% if pageCount > (endPage + 1) %}
+                    {% if pageCount > (endPage + 2) %}
+                        <span class="disabled">...</span>
+                    {% else %}
+                        <a href="{{ path(route, query|merge({(pageParameterName): (pageCount - 1)})) }}">{{ pageCount -1 }}</a>
+                    {% endif %}
+                {% endif %}
+                <a href="{{ path(route, query|merge({(pageParameterName): pageCount})) }}">{{ pageCount }}</a>
+            {% endif %}
+
+        </nav>
+
+        {% if next is defined %}
+            <a rel="next" href="{{ path(route, query|merge({(pageParameterName): next})) }}" class="nk-pagination-next">
+                <span class="ion-ios-arrow-forward"></span>
+            </a>
+        {% else %}
+            <a rel="next" href="#" class="nk-pagination-next disabled">
+                <span class="ion-ios-arrow-forward"></span>
+            </a>
+        {% endif %}
+
+    </div>
+
+{% endif %}

@@ -1,0 +1,148 @@
+{% set page = 'forum' %}
+
+{% extends "::theme.html.twig" %}
+
+{% block content %}
+    <!-- START: Breadcrumbs -->
+    <div class="nk-gap-1"></div>
+    <div class="container">
+        <ul class="nk-breadcrumbs">
+
+
+            <li><a href="{{ path('tyras_core_homepage') }}">Home</a></li>
+
+
+            <li>
+              <span class="fa fa-angle-right"></span>
+            </li>
+
+            <li><a href="#">Community</a></li>
+
+
+            <li>
+              <span class="fa fa-angle-right"></span>
+            </li>
+
+            <li>
+              <span>Forum</span>
+            </li>
+
+            <li>
+              <span class="fa fa-angle-right"></span>
+            </li>
+
+            <li>
+              <span>{{ forum.name }}</span>
+            </li>
+
+        </ul>
+    </div>
+    <div class="nk-gap-1"></div>
+    <!-- END: Breadcrumbs -->
+
+    <div class="container">
+
+        <!-- START: Pagination -->
+        <div class="row">
+            {% if pagination.getTotalItemCount >= 5 %}
+                <div class="col-md-3 push-md-9 text-xs-right">
+                    <a href="newTopic" class="nk-btn nk-btn-rounded nk-btn-color-white">New Topic</a>
+                </div>
+            {% endif %}
+        </div>
+        <!-- END: Pagination -->
+
+        <div class="nk-gap-2"></div>
+
+        <!-- START: Forums List -->
+        <ul class="nk-forum">
+            {% for topic in pagination %}
+            <li>
+                <div class="nk-forum-icon">
+                    <span class="{% if topic.pinned %}ion-pin{% elseif topic.resolved %}ion-checkmark-round{% elseif topic.closed %}ion-locked{% else %}ion-chatboxes{% endif %}"></span>
+                </div>
+                <div class="nk-forum-title">
+                    <h3><a href="{{ path('discutea_forum_post', {'slug': topic.slug}) }}">{{ topic.title }}</a></h3>
+                    <div class="nk-forum-title-sub">Started by <a href="#">{{ topic.user.username }}</a> on {{ topic.date|date('F j, Y') }}</div>
+                </div>
+                <div class="nk-forum-count">
+                    {% set posts_count = topic.posts|length %}
+                    {{ posts_count }} post{% if posts_count > 1 %}s{% endif %}
+                </div>
+                <div class="nk-forum-activity-avatar">
+                    <img src="{{ topic.posts.last.poster.avatar }}" alt="">
+                </div>
+                <div class="nk-forum-activity">
+                    <div class="nk-forum-activity-title" title="{{ topic.posts.last.poster.username }}">
+                        <a href="#">{{ topic.posts.last.poster.username }}</a>
+                    </div>
+                    <div class="nk-forum-activity-date">
+                        {{ topic.posts.last.date|date("M j, Y - H:m") }}
+                    </div>
+                </div>
+                {% if is_granted('ROLE_MODERATOR') %}
+                    <div class="row admin">
+                        <ul class="pull-right list-inline">
+                            <li style="margin-bottom: 5px;"><a class="nk-btn nk-btn-xs nk-btn-rounded nk-btn-outline nk-btn-color-white" id="{{ topic.id }}" class="editAction" href="{{ path("discutea_forum_topic_edit", {'id': topic.id}) }}"><span class="icon ion-edit"></span>{{ 'discutea.forum.edit'|trans }}</a></li>
+                            <li><a class="nk-btn nk-btn-xs nk-btn-rounded nk-btn-color-main-1" href="{{ path('discutea_forum_topic_delete', {'id': topic.id}) }}">{{ 'discutea.forum.remove'|trans }}</a></li>
+                        </ul>
+                    </div>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+        <!-- END: Forums List -->
+
+        <div class="nk-gap-2"></div>
+
+        <!-- START: Pagination -->
+        <div class="row">
+            <div class="col-md-9 pull-md-3">
+                {% do pagination.setCustomParameters({position: 'left'}) %}
+                {{ knp_pagination_render(pagination, 'pagination.html.twig') }}
+            </div>
+        </div>
+        <!-- END: Pagination -->
+
+    {% if form is not null %}
+        <div id="forum-reply"></div>
+        <div class="nk-gap-4"></div>
+        <!-- START: Reply -->
+        <h3><span class="text-main-1">New</span> Topic</h3>
+        {#<div class="nk-gap-1"></div>#}
+        {% include 'DForumBundle:Form:Topic.html.twig' %}
+        <div class="nk-gap-1"></div>
+        <!-- END: Reply -->
+    {% endif %}
+
+    </div>
+{% endblock %}
+
+{#{% block special_page_javascripts %}#}
+    {#<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>#}
+    {#<script>#}
+        {#tinymce.init({#}
+            {#selector: '#topic_content',#}
+            {#language_url: "{{ asset('assets/tinymce/langs/fr_FR.js') }}",#}
+            {#language: 'fr_FR',#}
+            {#height: 200,#}
+            {#theme: 'modern',#}
+            {#menubar: false,#}
+            {#plugins: [#}
+                {#'advlist autolink lists link image preview',#}
+                {#'searchreplace visualblocks visualchars code fullscreen',#}
+                {#'insertdatetime media table contextmenu directionality',#}
+                {#'emoticons paste textcolor colorpicker textpattern imagetools codesample toc'#}
+            {#],#}
+            {#toolbar1: 'undo redo | insert | styleselect | bullist numlist outdent indent',#}
+            {#toolbar2: 'preview | forecolor backcolor emoticons | codesample',#}
+            {#image_advtab: true,#}
+            {#content_css: [#}
+                {#'//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',#}
+                {#'//www.tinymce.com/css/codepen.min.css'#}
+            {#]#}
+        {#});#}
+
+    {#</script>#}
+
+{#{% endblock %}#}

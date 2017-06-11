@@ -1,0 +1,43 @@
+{% extends "TyrasUserBundle::layout.html.twig" %}
+
+{% block title %}
+    Actualité - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+
+    <ul class="nav nav-pills nav-stacked">
+    {% for news in listNews %}
+        <li>
+            <a href="{{ path('tyras_news_view', {'id': news.id}) }}">
+                {{ news.title }}
+            </a>
+            <img src="{{ news.image }}" alt="{{ news.title }}" />
+            {{ news.content[:250] | raw}}
+            <br />
+            <br />
+            <em>Le {{ news.date|date('d-m-Y') }}, par {{ news.author }}</em>
+        </li>
+    {% endfor %}
+    </ul>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        ul li:after {
+        content: "";
+        display: block;
+        height: 1px;
+        width: 100%;
+        margin: 0px;
+        background: #ff7474;
+        margin-top: 25px;
+        }
+
+        em {
+            float: right;
+        }
+    </style>
+{% endblock %}

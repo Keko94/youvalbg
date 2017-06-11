@@ -1,0 +1,19 @@
+{% extends "TyrasUserBundle::layout.html.twig" %}
+
+{% block title %}
+    Admin - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+
+    {% block content %}
+        <ul>
+        {% for news in listNews %}
+            <li>
+                {{ news.title }}, par {{ news.author }} <a href="{{ path('tyras_news_edit', {'id': news.id}) }}">Editer</a> | <a href="{{ path('tyras_news_delete', {'id': news.id}) }}">Supprimer</a>
+            </li>
+        {% endfor %}
+        </ul>
+    {% endblock %}
+
+{% endblock %}

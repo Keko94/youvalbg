@@ -1,0 +1,194 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+    - { resource: services.yml }
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+    locale: en
+
+framework:
+    #esi:             ~
+    translator:      { fallbacks: ["%locale%"] }
+    secret:          "%secret%"
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: ~
+    form:            ~
+    csrf_protection: ~
+    validation:      { enable_annotations: true }
+    #serializer:      { enable_annotations: true }
+    templating:
+        engines: ['twig']
+    default_locale:  "%locale%"
+    trusted_hosts:   ~
+    trusted_proxies: ~
+    session:
+        # http://symfony.com/doc/current/reference/configuration/framework.html#handler-id
+        handler_id:  session.handler.native_file
+        save_path:   "%kernel.root_dir%/../var/sessions/%kernel.environment%"
+    fragments:       ~
+    http_method_override: true
+    assets: ~
+
+# Twig Configuration
+twig:
+    debug:            "%kernel.debug%"
+    strict_variables: "%kernel.debug%"
+
+# Doctrine Configuration
+#doctrine:
+#    dbal:
+#      default_connection: default
+#      connections:
+#        default:
+#          driver:   pdo_mysql
+#          host:     "%database_host%"
+#          port:     "%database_port%"
+#          dbname:   "%database_name%"
+#          user:     "%database_user%"
+#          password: "%database_password%"
+#          charset:  UTF8
+##        user_api:
+##          driver_class: "Circle\\DoctrineRestDriver\\Driver"
+##          host:         "http://localhost:4000/api/1.0"
+##          port:         ""
+##          user:         ""
+##          password:     ""
+#
+#        # if using pdo_sqlite as your database driver:
+#        #   1. add the path in parameters.yml
+#        #     e.g. database_path: "%kernel.root_dir%/data/data.db3"
+#        #   2. Uncomment database_path in parameters.yml.dist
+#        #   3. Uncomment next line:
+#        #     path:     "%database_path%"
+#
+#    orm:
+#        auto_generate_proxy_classes: "%kernel.debug%"
+#        naming_strategy: doctrine.orm.naming_strategy.underscore
+#        auto_mapping: true
+#        resolve_target_entities:
+#            Symfony\Component\Security\Core\User\UserInterface: Tyras\UserBundle\Entity\User
+
+# Swiftmailer Configuration
+swiftmailer:
+    transport: "%mailer_transport%"
+    host:      "%mailer_host%"
+    username:  "%mailer_user%"
+    password:  "%mailer_password%"
+    spool:     { type: memory }
+
+fos_user:
+    db_driver:     mongodb
+    firewall_name: main
+    user_class:    Tyras\UserBundle\Entity\User
+    from_email:
+      address:        no-reply@tyras.com
+      sender_name:    Tyras
+    registration:
+      confirmation:
+        enabled:  false
+
+hwi_oauth:
+  connect:
+#    confirmation: true
+#    registration_form: fos_user.registration.form.factory
+    account_connector: my_user_provider
+  firewall_names: [main]
+  fosub:
+    username_iterations:  30
+    properties:
+      facebook: facebook_id
+      google: google_id
+      twitter:  twitter_id
+  resource_owners:
+    # Facebook Access
+    facebook:
+      type:               facebook
+      client_id:          251839931901262
+      client_secret:      63e64872c0c95a3fc3dbe128af467aeb
+      scope:              "email"
+      infos_url:          https://graph.facebook.com/me?fields=id,name,email,first_name,gender,last_name,verified,picture.type(square)
+      paths:
+        email:            email
+        profilepicture:   picture.data.url
+      options:
+        csrf: true
+    # Google Access
+    google:
+      type:               google
+      client_id:          262545441687-iri3dajpdner1sg49asravohjs6fu5kk.apps.googleusercontent.com
+      client_secret:      IAYWEmpVnsZPNWpj5lJNcfzg
+      scope:              "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile"
+      options:
+        csrf: true
+    # Twitter Access
+    twitter:
+      type:                twitter
+      client_id:           nK5w8Z3JJ8I7QDB5supvltDcx
+      client_secret:       bfOlvkd622G5vJgDlSoIc73Spe04HUUNskmlzuPoCRUvjtfQuj
+      options:
+        include_email:     true
+        csrf:              true
+
+hackzilla_ticket:
+  user_class:             Tyras\UserBundle\Entity\User
+  ticket_class:           Hackzilla\Bundle\TicketBundle\Entity\TicketWithAttachment
+  message_class:          Hackzilla\Bundle\TicketBundle\Entity\TicketMessageWithAttachment
+  features:
+    attachment:           true
+  templates:
+    index: 'Ticket/index.html.twig'
+    new: 'Ticket/new.html.twig'
+    prototype: 'Ticket/prototype.html.twig'
+    show: 'Ticket/show.html.twig'
+    show_attachment: 'Ticket/show_attachment.html.twig'
+
+# Stof\DoctrineExtensionsBundle configuration
+stof_doctrine_extensions:
+    mongodb:
+        default:
+            sluggable: true
+
+vich_uploader:
+    db_driver: mongodb # or mongodb or propel or phpcr
+
+    mappings:
+      ticket_message_attachment:
+        uri_prefix:         /attachment
+        upload_destination: "%kernel.root_dir%/../var/uploads/attachment/"
+
+# Configuration discutea forum
+discutea_forum:
+    preview:
+        enabled: true
+    knp_paginator:
+        page_name: page  #voir knp_paginator.default_option.page_name
+        topics:
+            enabled: true
+            per_page: 10
+        posts:
+            enabled: true
+            per_page: 10
+
+doctrine_mongodb:
+    connections:
+        default:
+            server: "mongodb://localhost:27017"
+            options: {}
+    default_database: tyras_db
+    document_managers:
+        default:
+            auto_mapping: true
+            mappings:
+              TyrasNewsBundle:
+                type: annotation
+                dir: %kernel.root_dir%/../src/Tyras/NewsBundle/Entity
+                prefix: Tyras\NewsBundle\Entity
+                is_bundle: false
+              TyrasUserBundle:
+                type: annotation
+                dir: %kernel.root_dir%/../src/Tyras/UserBundle/Entity
+                prefix: Tyras\UserBundle\Entity
+                is_bundle: false

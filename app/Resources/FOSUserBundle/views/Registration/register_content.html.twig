@@ -1,0 +1,97 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+{#{{ form_errors(form) }}#}
+<form id="form-register" class="nk-form text-white">
+
+    <div class="row vertical-gap">
+        <div class="col-md-6">
+
+            <div class="nk-gap"></div>
+            {{ form_widget(form.username, { 'attr': {'class': 'form-control', 'placeholder': 'Username'} }) }}
+            {{ form_errors(form.username) }}
+            <div class="nk-gap"></div>
+            {{ form_widget(form.plainPassword.first, { 'attr': {'class': 'form-control', 'placeholder': 'Password'} }) }}
+            {{ form_errors(form.plainPassword.first) }}
+            <div class="nk-gap"></div>
+            {{ form_widget(form.plainPassword.second, { 'attr': {'class': 'form-control', 'placeholder': 'Confirm Password'} }) }}
+            {{ form_errors(form.plainPassword.second) }}
+            <div class="nk-gap"></div>
+            {{ form_widget(form.email, { 'attr': {'class': 'form-control', 'placeholder': 'Email'} }) }}
+            {{ form_errors(form.email) }}
+
+            {{ form_rest(form) }}
+
+            <div class="nk-gap"></div>
+            <div id="errorsReg"></div>
+        </div>
+        <div class="col-md-6">
+            Or social account:
+
+            <div class="nk-gap"></div>
+
+            <ul class="nk-social-links-2">
+                <li>
+                    <a class="nk-social-facebook" href="{{ path('hwi_oauth_service_redirect', {'service': 'facebook' }) }}">
+                        <span class="fa fa-facebook"></span>
+                    </a>
+                </li>
+                <li>
+                    <a class="nk-social-google-plus" href="{{ path('hwi_oauth_service_redirect', {'service': 'google' }) }}">
+                        <span class="fa fa-google-plus"></span>
+                    </a>
+                </li>
+                <li>
+                    <a class="nk-social-twitter" href="{{ path('hwi_oauth_service_redirect', {'service': 'twitter' }) }}">
+                        <span class="fa fa-twitter"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="nk-gap-1"></div>
+
+    <div class="row vertical-gap">
+        <div class="col-md-6">
+            <input type="submit" value="Register" id="_submit" name="_submit"
+                   class="nk-btn nk-btn-rounded nk-btn-color-white nk-btn-block">
+        </div>
+        <div class="col-md-6">
+            <div class="mnt-5">
+                <small><a href="#" id="loginMe" data-toggle="modal" data-target="#modalLogin">Already member ? Sign in</a></small>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+    $(document).ready(function () {
+        $('#loginMe').click(function () {
+            $("#modalRegister").modal('toggle');
+        });
+
+        $("#form-register").submit(function (e) {
+            e.preventDefault();
+            if (!$("#form-register").validate())
+                return false;
+            var values = {};
+            $('#form-register').serializeArray().forEach(function (field) {
+                values[field.name] = field.value;
+            });
+            $.ajax({
+                url: "{{ path('fos_user_registration_register') }}",
+                data: values,
+                type: 'post'
+            }).done(function (data) {
+                window.location.reload();
+            }).fail(function (data) {
+                var newHTML = $.map(data.responseJSON.message, function (value) {
+
+                    return ('<li>' + value.substr(7) + '</li>');
+                });
+                console.log(newHTML);
+                $("#errorsReg").html(newHTML);
+            });
+        });
+    });
+</script>

@@ -1,0 +1,139 @@
+{% set page = 'forum' %}
+
+{% extends "::theme.html.twig" %}
+
+{% block content %}
+  <!-- START: Breadcrumbs -->
+  <div class="nk-gap-1"></div>
+  <div class="container">
+    <ul class="nk-breadcrumbs">
+
+
+      <li><a href="{{ path('tyras_core_homepage') }}">Home</a></li>
+
+
+      <li>
+        <span class="fa fa-angle-right"></span>
+      </li>
+
+      <li><a href="#">Community</a></li>
+
+
+      <li>
+        <span class="fa fa-angle-right"></span>
+      </li>
+
+      <li>
+        <span>Forum</span>
+      </li>
+
+      <li>
+        <span class="fa fa-angle-right"></span>
+      </li>
+
+      <li>
+        <span>{{ topic.title }}</span>
+      </li>
+
+
+    </ul>
+  </div>
+  <div class="nk-gap-1"></div>
+  <!-- END: Breadcrumbs -->
+
+    <div class="container">
+
+      <!-- START: Pagination -->
+      <div class="row">
+        <div class="col-md-3 push-md-9 text-xs-right">
+          <a href="#forum-reply" class="nk-btn nk-btn-rounded nk-btn-color-white nk-anchor">Reply</a>
+        </div>
+      </div>
+      <!-- END: Pagination -->
+
+      <div class="nk-gap-2"></div>
+
+      <!-- START: Forums List -->
+      <ul class="nk-forum nk-forum-topic">
+          {% for post in posts %}
+            <li>
+              <div class="nk-forum-topic-author">
+                <img src="{{ post.poster.avatar }}" alt="">
+                <div class="nk-forum-topic-author-name" title="{{ post.poster.username }}">
+                  <a href="#">{{ post.poster.username }}</a>
+                </div>
+                <div class="nk-forum-topic-author-role" style="color: {% if post.poster.hasRole('ROLE_ADMIN') %}red">Admin{% elseif post.poster.hasRole('ROLE_MODERATOR') %}blue">Moderator{% else %}purple">Player{% endif %}</div>
+                <div class="nk-forum-topic-author-since">
+                    Last login on {{ post.poster.lastLogin|date('F j, Y \\a\\t H:m') }}
+                </div>
+              </div>
+              <div class="nk-forum-topic-content">
+                <p>{{ post.content|raw }}</p>
+
+                {#<div class="nk-forum-topic-attachments">#}
+                  {#<h4 class="h5">Attachments</h4>#}
+                  {#<a href="#">goodgames-free.zip</a>#}
+                  {#<br> (14.86 MiB) Downloaded 185 times#}
+                {#</div>#}
+              </div>
+              <div class="nk-forum-topic-footer">
+                <span class="nk-forum-topic-date">{{ post.date|date('F j, Y - H:m') }}</span>
+
+                {#<span class="nk-forum-action-btn">#}
+                                {#<a href="#forum-reply" class="nk-anchor">#}
+                                    {#<span class="fa fa-reply"></span> Reply</a>#}
+                            {#</span>#}
+                {#<span class="nk-forum-action-btn">#}
+                                {#<a href="#">#}
+                                    {#<span class="fa fa-flag"></span> Spam</a>#}
+                            {#</span>#}
+
+                {% if is_granted('ROLE_MODERATOR') %}
+                    <span class="nk-forum-action-btn">
+                        <a href="{{ path('discutea_forum_post_delete', {'id': post.id}) }}"><span class="fa fa-trash"></span> {{ 'discutea.forum.remove'|trans }}</a>
+                    </span>
+                {% endif %}
+
+
+                  {% if (post.poster == app.user or is_granted('ROLE_MODERATOR')) %}
+                      <span class="nk-forum-action-btn">
+                        <a href="{{ path("discutea_forum_post_edit", {'id': post.id}) }}"><span class="fa fa-pencil"></span> {{ 'discutea.forum.edit'|trans }}</a>
+                      </span>
+                  {% endif %}
+              </div>
+
+        {% endfor %}
+      </ul>
+      <!-- END: Forums List -->
+
+      <div class="nk-gap-2"></div>
+
+      <!-- START: Pagination -->
+        {% do posts.setCustomParameters({position: 'left'}) %}
+        {{ knp_pagination_render(posts, 'pagination.html.twig') }}
+      <!-- END: Pagination -->
+
+        {% if form is not null %}
+            {% if date(topic.lastpost) < date('-1month') %}
+                <div class="nk-info-box text-warning">
+                    <div class="nk-info-box-icon">
+                        <i class="ion-alert"></i>
+                    </div>
+                    <h3>Careful !</h3>
+                    <em>{{ 'discutea.forum.post.aged'|trans }}</em>
+                </div>
+            {% endif %}
+            <div id="forum-reply"></div>
+            <div class="nk-gap-4"></div>
+            <!-- START: Reply -->
+            <h3 class="h4">Reply</h3>
+            {#<div class="nk-gap-1"></div>#}
+            {% include 'DForumBundle::Form/Post.html.twig' %}
+            <div class="nk-gap-1"></div>
+
+            <!-- END: Reply -->
+        {% endif %}
+
+    </div>
+
+{% endblock %}

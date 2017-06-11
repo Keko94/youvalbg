@@ -1,0 +1,74 @@
+{% include 'DiviAjaxLoginBundle:Javascript:init.html.twig' with {'form_selector': '#form-login'} %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+<form id="form-login" method="POST" action="{{ path('fos_user_security_check') }}" class="nk-form text-white">
+
+    {% if csrf_token %}
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
+    {% endif %}
+    <div class="row vertical-gap">
+        <div class="col-md-6">
+            Use username and password:
+
+            <div class="nk-gap"></div>
+            <input type="text" value="{{ last_username }}" id="username" name="_username" class="required form-control"
+                   placeholder="Username">
+
+            <div class="nk-gap"></div>
+            <input type="password" value="" id="password" name="_password" class="required form-control"
+                   placeholder="Password">
+
+            <div class="nk-gap"></div>
+            <div id="error"></div>
+        </div>
+        <div class="col-md-6">
+            Or social account:
+
+            <div class="nk-gap"></div>
+
+            <ul class="nk-social-links-2">
+                <li>
+                    <a class="nk-social-facebook" href="{{ path('hwi_oauth_service_redirect', {'service': 'facebook' }) }}">
+                        <span class="fa fa-facebook"></span>
+                    </a>
+                </li>
+                <li>
+                    <a class="nk-social-google-plus" href="{{ path('hwi_oauth_service_redirect', {'service': 'google' }) }}">
+                        <span class="fa fa-google-plus"></span>
+                    </a>
+                </li>
+                <li>
+                    <a class="nk-social-twitter" href="{{ path('hwi_oauth_service_redirect', {'service': 'twitter' }) }}">
+                        <span class="fa fa-twitter"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="nk-gap-1"></div>
+
+    <div class="row vertical-gap">
+        <div class="col-md-6">
+            <input type="submit" value="Sign In" id="_submit" name="_submit"
+                   class="nk-btn nk-btn-rounded nk-btn-color-white nk-btn-block">
+        </div>
+        <div class="col-md-6">
+            <div class="mnt-5">
+                <small><a href="#">Forgot your password?</a></small>
+            </div>
+            <div class="mnt-5">
+                <small><a href="#" id="registerMe" data-toggle="modal" data-target="#modalRegister">Not a member ? Sign up</a></small>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+    $(document).ready(function () {
+        $('#registerMe').click(function () {
+            $("#modalLogin").modal('toggle');
+        })
+    });
+</script>

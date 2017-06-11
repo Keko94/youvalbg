@@ -1,0 +1,98 @@
+{% extends "TyrasUserBundle::layout.html.twig" %}
+
+{% block title %}
+    Admin - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+<h3>Formulaire d'ajout de news</h3>
+
+<div class="well">
+    {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+
+    {# Les erreurs générales du formulaire. #}
+    {#{{ form_errors(form) }}#}
+
+    {# Génération du label + error + widget pour un champ. #}
+    {% if form.date is defined %}
+        {{ form_row(form.date) }}
+    {% endif %}
+
+    {# Génération manuelle et éclatée : #}
+    <div class="form-group">
+        {# Génération du label. #}
+        {{ form_label(form.title, "Titre", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+
+        {# Affichage des erreurs pour ce champ précis. #}
+        {{ form_errors(form.title) }}
+
+        <div class="col-sm-10">
+            {# Génération de l'input. #}
+            {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    </div>
+
+    {# Idem pour un autre champ. #}
+    <div class="form-group">
+        {{ form_label(form.content, "Contenu", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+        {{ form_errors(form.content) }}
+        <div class="col-sm-10">
+            {{ form_widget(form.content, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    </div>
+
+    {{ form_label(form.author, "Auteur") }}
+    {{ form_errors(form.author) }}
+    {{ form_widget(form.author, {'value' : app.user.username}) }}
+
+    {% if form.enabled is defined %}
+        {{ form_row(form.enabled) }}
+    {% endif %}
+
+    {{ form_row(form.image) }}
+
+
+    {# Pour le bouton, pas de label ni d'erreur, on affiche juste le widget #}
+    {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
+
+    {# Génération automatique des champs pas encore écrits.
+       Dans cet exemple, ce serait le champ CSRF (géré automatiquement par Symfony !)
+       et tous les champs cachés (type « hidden »). #}
+    {{ form_rest(form) }}
+
+    {# Fermeture de la balise <form> du formulaire HTML #}
+    {{ form_end(form) }}
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            language_url: "{{ asset('assets/tinymce/langs/fr_FR.js') }}",
+            language: 'fr_FR',
+            //height: 500,
+            theme: 'modern',
+            plugins: [
+                'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+                'searchreplace wordcount visualblocks visualchars code fullscreen',
+                'insertdatetime media nonbreaking save table contextmenu directionality',
+                'emoticons template paste textcolor colorpicker textpattern imagetools codesample toc'
+            ],
+            toolbar1: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+            toolbar2: 'print preview media | forecolor backcolor emoticons | codesample',
+            image_advtab: true,
+            templates: [
+                { title: 'Test template 1', content: 'Test 1' },
+                { title: 'Test template 2', content: 'Test 2' }
+            ],
+            content_css: [
+                '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+                '//www.tinymce.com/css/codepen.min.css'
+            ]
+        });
+
+    </script>
+
+{% endblock %}

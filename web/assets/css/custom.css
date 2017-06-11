@@ -1,0 +1,5 @@
+/* PLACE YOU CUSTOM STYLES IN THIS FILE */
+
+.modal-open {
+  overflow-y: scroll;
+}

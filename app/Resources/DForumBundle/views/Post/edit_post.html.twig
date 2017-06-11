@@ -1,0 +1,50 @@
+{% set page = 'forum' %}
+
+{% extends "::theme.html.twig" %}
+
+{% block content %}
+  <!-- START: Breadcrumbs -->
+  <div class="nk-gap-1"></div>
+  <div class="container">
+    <ul class="nk-breadcrumbs">
+
+
+      <li><a href="{{ path('tyras_core_homepage') }}">Home</a></li>
+
+
+      <li>
+        <span class="fa fa-angle-right"></span>
+      </li>
+
+      <li><a href="#">Community</a></li>
+
+
+      <li>
+        <span class="fa fa-angle-right"></span>
+      </li>
+
+      <li>
+        <span>Forum</span>
+      </li>
+
+      <li>
+        <span class="fa fa-angle-right"></span>
+      </li>
+
+      <li>
+        <span>Edit post</span>
+      </li>
+
+    </ul>
+  </div>
+  <div class="nk-gap-1"></div>
+  <!-- END: Breadcrumbs -->
+
+  <div class="container">
+  {% if form is not null %}
+   {% include 'DForumBundle:Form:Post.html.twig' %}
+  {% endif %}
+  </div>
+
+{% endblock %}
+

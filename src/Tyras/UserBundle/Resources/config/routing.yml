@@ -1,0 +1,11 @@
+#tyras_user_login:
+#    path:     /login
+#    defaults: { _controller: TyrasUserBundle:User:login }
+#
+#tyras_user_register:
+#    path:     /register
+#    defaults: { _controller: TyrasUserBundle:User:register }
+
+tyras_user_edit:
+  path:     /profile
+  defaults: { _controller: TyrasUserBundle:Profile:show }

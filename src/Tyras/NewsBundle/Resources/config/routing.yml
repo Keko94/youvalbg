@@ -1,0 +1,34 @@
+tyras_news_view:
+    path:     /show_news/{id}/{slug}
+    defaults: { _controller: TyrasNewsBundle:News:view }
+    requirements:
+      id: \d+
+      slug: .+
+
+tyras_news_add:
+    path:     /admin/add_news
+    defaults: { _controller: TyrasNewsBundle:News:add }
+
+tyras_news_edit:
+    path:     /admin/edit_news/{id}
+    defaults: { _controller: TyrasNewsBundle:News:edit }
+    requirements:
+      id: \d+
+
+tyras_news_delete:
+    path:     /admin/delete_news/{id}
+    defaults: { _controller: TyrasNewsBundle:News:Delete }
+    requirements:
+      id: \d+
+
+tyras_news_admin_list:
+    path:     /admin/list_news
+    defaults: { _controller: TyrasNewsBundle:News:listAdmin }
+
+tyras_news_list:
+    path:     /news-list
+    defaults: { _controller: TyrasNewsBundle:News:list }
+
+tyras_news_index:
+    path:     /news
+    defaults: { _controller: TyrasNewsBundle:News:index }

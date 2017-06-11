@@ -1,0 +1,4 @@
+services:
+#    tyras_news.example:
+#        class: Tyras\NewsBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

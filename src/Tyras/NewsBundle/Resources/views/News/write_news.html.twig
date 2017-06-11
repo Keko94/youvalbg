@@ -1,0 +1,142 @@
+{% set page = 'admin_addnews' %}
+{% set cat = 'admin' %}
+{% set subcat = 'admin_news' %}
+
+{% extends "::theme.html.twig" %}
+
+{% block content %}
+
+    <!-- START: Breadcrumbs -->
+    <div class="nk-gap-1"></div>
+    <div class="container">
+        <ul class="nk-breadcrumbs">
+
+
+            <li><a href="{{ path('tyras_core_homepage') }}">Home</a></li>
+
+
+            <li>
+                <span class="fa fa-angle-right"></span>
+            </li>
+
+            <li><a href="#">Admin</a></li>
+
+
+            <li>
+                <span class="fa fa-angle-right"></span>
+            </li>
+
+            <li><a href="#">News</a></li>
+
+
+            <li>
+                <span class="fa fa-angle-right"></span>
+            </li>
+
+            <li>
+                <span>Write a news</span>
+            </li>
+
+        </ul>
+    </div>
+    <div class="nk-gap-1"></div>
+    <!-- END: Breadcrumbs -->
+
+    <div class="container">
+        <div class="row equal-height vertical-gap">
+            <div class="col-lg-12">
+
+                <div class="nk-box-2 bg-dark-2" style="height:auto">
+                    {{ form_start(form, {'attr': {'class': 'nk-form'}}) }}
+                    <div class="form-group row">
+                        {{ form_label(form.title, 'Title', { 'label_attr': {'class': 'col-lg-2 col-md-2 col-sm-2 control-label'} }) }}
+                        <div class="col-lg-8 col-md-8 col-sm-8">
+                            {{ form_widget(form.title, { 'attr': {'class': 'form-control required' } }) }}
+                            {{ form_errors(form.title) }}
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        {{ form_label(form.date, 'Date', { 'label_attr': {'class': 'col-lg-2 col-md-2 col-sm-2 control-label'} }) }}
+                        <div class="col-lg-8 col-md-8 col-sm-8">
+                            {{ form_widget(form.date, { 'attr': {'class': 'form-control required' } }) }}
+                            {{ form_errors(form.date) }}
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        {{ form_label(form.content, 'Content', { 'label_attr': {'class': 'col-lg-2 col-md-2 col-sm-2 control-label'} }) }}
+                        <div class="col-lg-8 col-md-8 col-sm-8">
+                            {{ form_widget(form.content, { 'attr': {'class': 'form-control required' } }) }}
+                            {{ form_errors(form.content) }}
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        {{ form_label(form.author, 'Author', { 'label_attr': {'class': 'col-lg-2 col-md-2 col-sm-2 control-label'} }) }}
+                        <div class="col-lg-8 col-md-8 col-sm-8">
+                            {{ form_widget(form.author, { 'attr': {'class': 'form-control required', 'value': app.user.username } }) }}
+                            {{ form_errors(form.author) }}
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        {{ form_label(form.enabled, 'Enabled', { 'label_attr': {'class': 'col-lg-2 col-md-2 col-sm-2 control-label'} }) }}
+                        <div class="col-lg-8 col-md-8 col-sm-8">
+                            {{ form_widget(form.enabled, { 'attr': {'class': '' } }) }}
+                            {{ form_errors(form.enabled) }}
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        {{ form_label(form.image, 'Image URL', { 'label_attr': {'class': 'col-lg-2 col-md-2 col-sm-2 control-label'} }) }}
+                        <div class="col-lg-8 col-md-8 col-sm-8">
+                            {{ form_widget(form.image, { 'attr': {'class': 'form-control required' } }) }}
+                            {{ form_errors(form.image) }}
+                        </div>
+                    </div>
+
+                    {{ form_widget(form.save, {'attr': {'class': 'nk-btn nk-btn-rounded nk-btn-color-main-3'}}) }}
+
+                    {{ form_rest(form) }}
+
+                    {{ form_end(form) }}
+                </div>
+            </div>
+            {#{% include 'sidebar.html.twig' %}#}
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block special_page_javascripts %}
+    <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+    <script>
+        tinymce.init({
+            selector: '#tyras_newsbundle_news_content',
+            language_url: "{{ asset('assets/tinymce/langs/fr_FR.js') }}",
+            language: 'fr_FR',
+            height: 200,
+            theme: 'modern',
+            plugins: [
+                'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+                'searchreplace wordcount visualblocks visualchars code fullscreen',
+                'insertdatetime media nonbreaking save table contextmenu directionality',
+                'emoticons template paste textcolor colorpicker textpattern imagetools codesample toc'
+            ],
+            toolbar1: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+            toolbar2: 'print preview media | forecolor backcolor emoticons | codesample',
+            image_advtab: true,
+            templates: [
+                { title: 'Test template 1', content: 'Test 1' },
+                { title: 'Test template 2', content: 'Test 2' }
+            ],
+            content_css: [
+                '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+                '//www.tinymce.com/css/codepen.min.css'
+            ]
+        });
+
+    </script>
+
+{% endblock %}

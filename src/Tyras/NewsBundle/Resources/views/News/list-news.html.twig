@@ -1,0 +1,76 @@
+{% set page = 'news' %}
+
+{% extends "::theme.html.twig" %}
+
+{% block content %}
+    <!-- START: Breadcrumbs -->
+    <div class="nk-gap-1"></div>
+    <div class="container">
+        <ul class="nk-breadcrumbs">
+
+
+            <li><a href="{{ path('tyras_core_homepage') }}">Home</a></li>
+
+
+            <li>
+                <span class="fa fa-angle-right"></span>
+            </li>
+
+            <li><a href="#">News</a></li>
+
+
+            <li>
+                <span class="fa fa-angle-right"></span>
+            </li>
+
+            <li>
+                <span>Latest News</span>
+            </li>
+
+        </ul>
+    </div>
+    <div class="nk-gap-1"></div>
+    <!-- END: Breadcrumbs -->
+
+    <div class="container">
+        <div class="row equal-height vertical-gap">
+            <div class="col-lg-8">
+
+                <!-- START: Posts List -->
+                <div class="nk-blog-list">
+
+
+                    {% for news in listNews %}
+                        <div class="nk-blog-post">
+                            <div class="row vertical-gap">
+                                <div class="col-md-5 col-lg-6">
+                                    <a href="{{ path('tyras_news_view', {'id': news.id, 'slug': news.slug}) }}" class="nk-post-img">
+                                        <img src="{{ asset(news.image) }}" alt="{{ news.title }}">
+                                        {#<span class="nk-post-comments-count">4</span>#}
+                                    </a>
+                                </div>
+                                <div class="col-md-7 col-lg-6">
+                                    <h2 class="nk-post-title h4"><a href="{{ path('tyras_news_view', {'id': news.id, 'slug': news.slug}) }}">{{ news.title }}</a></h2>
+
+                                    <div class="nk-post-text">
+                                        <p>{{ news.content|resum }}...</p>
+                                    </div>
+
+                                    <div class="nk-post-by">
+                                        <img src="{{ asset('assets/images/avatar-1.jpg') }}" alt="Hitman" class="img-circle" width="35"> by <a href="#">{{ news.author }}</a> in {{ news.date|date('M j, Y') }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END: Post -->
+                    {% endfor %}
+
+                    {{ knp_pagination_render(listNews, 'pagination.html.twig') }}
+                </div>
+                <!-- END: Posts List -->
+
+            </div>
+            {% include 'sidebar.html.twig' %}
+        </div>
+    </div>
+{% endblock %}

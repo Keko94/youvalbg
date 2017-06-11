@@ -1,0 +1,24 @@
+{% extends "TyrasUserBundle::layout.html.twig" %}
+
+{% block title %}
+    Admin - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+
+    {% block content %}
+        <h2>Supprimer un article</h2>
+        <p>Êtes-vous certain de vouloir supprimer l'article "{{ news.title }}" ?</p>
+
+        <form action="{{ path('tyras_news_delete', {'id': news.id}) }}" method="POST">
+            <a href="{{ path('tyras_news_list') }}" class="btn btn-default">
+                <i class="glyphicon glyphicon-chevron-left"></i>
+                Retour
+            </a>
+            <input type="submit" value="Supprimer" class="btn btn-danger" />
+            {{ form_rest(form) }}
+        </form>
+
+    {% endblock %}
+
+{% endblock %}

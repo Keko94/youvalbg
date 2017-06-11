@@ -1,0 +1,18 @@
+{% extends "TyrasUserBundle::layout.html.twig" %}
+
+{% block title %}
+    {{ news.title }} - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+
+    {% block subtitle %}<h2 class="page-header">{{ news.title }}</h2>{% endblock %}
+
+    {% block content %}
+        <img src="{{ news.image }}" alt="{{ news.title }}" />
+        <p>{{ news.content | raw }}</p>
+        <em>Le {{ news.date|date('d-m-Y') }}, par {{ news.author }}</em>
+
+    {% endblock %}
+
+{% endblock %}

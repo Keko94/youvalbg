@@ -1,0 +1,7 @@
+tyras_core_homepage:
+  path:     /
+  defaults: { _controller: TyrasCoreBundle:Core:index }
+
+tyras_core_gallery:
+  path:     /gallery
+  defaults: { _controller: TyrasCoreBundle:Core:gallery }
