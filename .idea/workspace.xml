@@ -10,23 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4698579f-3d97-4c7d-9cc6-e3abfa14834c" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Tyras/CoreBundle/Entity/Gallery.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Tyras/CoreBundle/Repository/GalleryRepository.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Tyras/CoreBundle/Repository/GalleryRepositoryODM.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Tyras/CoreBundle/Resources/views/Default/upload.html.twig" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Tyras/UserBundle/Form/ProfileFormType.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/FOSUserBundle/views/Profile/edit.html.twig" afterPath="$PROJECT_DIR$/app/Resources/FOSUserBundle/views/Profile/edit.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/Ticket/show.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/Ticket/show.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/header.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/header.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/config.yml" afterPath="$PROJECT_DIR$/app/config/config.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/security.yml" afterPath="$PROJECT_DIR$/app/config/security.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/services.yml" afterPath="$PROJECT_DIR$/app/config/services.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Tyras/CoreBundle/Controller/CoreController.php" afterPath="$PROJECT_DIR$/src/Tyras/CoreBundle/Controller/CoreController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Tyras/CoreBundle/Resources/config/routing.yml" afterPath="$PROJECT_DIR$/src/Tyras/CoreBundle/Resources/config/routing.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Tyras/CoreBundle/Resources/views/Default/gallery.html.twig" afterPath="$PROJECT_DIR$/src/Tyras/CoreBundle/Resources/views/Default/gallery.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Tyras/NewsBundle/Entity/News.php" afterPath="$PROJECT_DIR$/src/Tyras/NewsBundle/Entity/News.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Tyras/UserBundle/Entity/User.php" afterPath="$PROJECT_DIR$/src/Tyras/UserBundle/Entity/User.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
     </list>
     <ignored path="Tyras.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -73,11 +57,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="gallery.html.twig" pinned="false" current-in-tab="true">
+      <file leaf-file-name="gallery.html.twig" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Tyras/CoreBundle/Resources/views/Default/gallery.html.twig">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="745">
               <caret line="77" column="0" lean-forward="true" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="221">
+              <caret line="13" column="28" lean-forward="false" selection-start-line="13" selection-start-column="28" selection-end-line="13" selection-end-column="28" />
               <folding />
             </state>
           </provider>
@@ -190,7 +184,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/Resources/views/Ticket/show.html.twig" />
         <option value="$PROJECT_DIR$/app/config/security.yml" />
         <option value="$PROJECT_DIR$/vendor/hackzilla/ticket-bundle/Resources/config/doctrine/model/attachment/TicketWithAttachment.mongodb.xml" />
         <option value="$PROJECT_DIR$/vendor/hackzilla/ticket-bundle/Resources/config/doctrine/model/attachment/TicketMessageWithAttachment.mongodb.xml" />
@@ -241,6 +234,7 @@
         <option value="$PROJECT_DIR$/src/Tyras/CoreBundle/Entity/Gallery.php" />
         <option value="$PROJECT_DIR$/src/Tyras/CoreBundle/Controller/CoreController.php" />
         <option value="$PROJECT_DIR$/src/Tyras/CoreBundle/Resources/views/Default/gallery.html.twig" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -911,12 +905,12 @@
       <workItem from="1499169679035" duration="2076000" />
       <workItem from="1499184852908" duration="10522000" />
       <workItem from="1499255363117" duration="6289000" />
-      <workItem from="1499415599596" duration="6100000" />
+      <workItem from="1499415599596" duration="6624000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="377255000" />
+    <option name="totallyTimeSpent" value="377779000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="0" />
@@ -963,13 +957,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/vendor/discutea/forum-bundle/Discutea/DForumBundle/Controller/PostController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="46" column="84" lean-forward="false" selection-start-line="46" selection-start-column="84" selection-end-line="46" selection-end-column="84" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vendor/discutea/forum-bundle/Discutea/DForumBundle/Controller/ForumController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1103">
@@ -1332,6 +1319,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="745">
           <caret line="77" column="0" lean-forward="true" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="28" lean-forward="false" selection-start-line="13" selection-start-column="28" selection-end-line="13" selection-end-column="28" />
           <folding />
         </state>
       </provider>
