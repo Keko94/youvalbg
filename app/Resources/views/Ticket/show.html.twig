@@ -45,7 +45,7 @@
     <h1>
         {{ macros.status_btn(ticket.status, ticket.statusString|trans) }}
         {{ macros.priority_btn(ticket.priority, ticket.priorityString|trans) }}
-        <small>#{{ ticket.id }}</small>
+        {#<small>#{{ ticket.id }}</small>#}
         - {{ ticket.subject }}
     </h1>
     <p>

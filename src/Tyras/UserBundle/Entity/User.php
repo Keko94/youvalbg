@@ -6,13 +6,17 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use FOS\UserBundle\Model\User as BaseUser;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * User
  *
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="Tyras\UserBundle\Repository\UserRepository")
+ * @ORM\HasLifecycleCallbacks
  * @ODM\Document(repositoryClass="Tyras\UserBundle\Repository\UserRepositoryODB")
+ * @ODM\HasLifecycleCallbacks
  */
 class User extends BaseUser implements \Hackzilla\Bundle\TicketBundle\Model\UserInterface
 {
@@ -22,7 +26,7 @@ class User extends BaseUser implements \Hackzilla\Bundle\TicketBundle\Model\User
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @ODM\Id(strategy="INCREMENT", type="string")
+     * @ODM\Id(strategy="INCREMENT", type="int")
      */
     protected $id;
 
@@ -74,14 +78,31 @@ class User extends BaseUser implements \Hackzilla\Bundle\TicketBundle\Model\User
      */
     protected $twitter_access_token;
 
+
     /**
-     * @var string
+     *  @var string
      *
      * @ORM\Column(name="avatar", type="string", length=255, nullable=true)
      * @ODM\Field(type="string")
      */
-
     protected $avatar;
+
+    /**
+     * @var UploadedFile
+     *
+     * @Assert\File(
+     *     maxSize = "5M",
+     *     mimeTypes = {"image/jpeg", "image/gif", "image/png", "image/tiff"},
+     *     maxSizeMessage = "The maxmimum allowed file size is 5MB.",
+     *     mimeTypesMessage = "Only the filetypes image are allowed.")
+     */
+    protected $avatar_file;
+
+    protected $avatarTemp;
+
+    protected $avatar_name;
+
+    protected $token;
 
 
     public function __construct()
@@ -251,4 +272,134 @@ class User extends BaseUser implements \Hackzilla\Bundle\TicketBundle\Model\User
 
         return $this;
     }
+
+    public function getAvatarFile()
+    {
+        return $this->avatar_file;
+    }
+
+    /**
+     * Sets avatar.
+     *
+     * @param UploadedFile $avatar_file
+     */
+    public function setAvatarFile(UploadedFile $avatar_file = null)
+    {
+        $this->avatar_file = $avatar_file;
+        // check if we have an old image path
+        if (isset($this->avatar)) {
+            // store the old name to delete after the update
+            $this->avatarTemp = $this->avatar;
+            $this->avatar = null;
+        } else {
+            $this->avatar = 'initial';
+        }
+    }
+
+    public function getAbsolutePath()
+    {
+        return null === $this->avatar
+            ? null
+            : $this->getUploadRootDir().'/'.$this->avatar;
+    }
+
+    public function getWebPath()
+    {
+        return null === $this->avatar
+            ? null
+            : $this->getUploadDir().'/'.$this->avatar;
+    }
+
+    public function getUploadDir()
+    {
+        return 'uploads/user/avatar';
+    }
+
+    protected function getUploadRootDir()
+    {
+        return __DIR__.'/../../../../web/'.$this->getUploadDir();
+    }
+
+
+    /**
+     * @ORM\PostRemove()
+     * @ODM\PostRemove()
+     */
+    public function removeUpload()
+    {
+        /*$file = $this->getAbsolutePath();
+        if ($file) {
+            @unlink($file);
+        }*/
+        @unlink($this->avatar);
+    }
+
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     * @ODM\PrePersist()
+     * @ODM\PreUpdate()
+     */
+    public function preUpload()
+    {
+        if (null !== $this->avatar_file) {
+            $filename = sha1(uniqid(mt_rand(), true));
+            $this->avatar_name = $filename.'.'.$this->getAvatarFile()->guessExtension();
+            //ATTENTION LIEN HARDCODED!!!
+            $this->avatar = '/Tyras-Mongo/web/'.$this->getUploadDir().'/'.$this->avatar_name;
+        }
+    }
+
+    /**
+     * Called after entity persistence
+     *
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
+     * @ODM\PostPersist()
+     * @ODM\PostUpdate()
+     */
+    public function upload()
+    {
+        // The file property can be empty if the field is not required
+        if (null === $this->avatar_file) {
+            return;
+        }
+
+        // check if we have an old image
+        if (isset($this->avatarTemp)) {
+            if (substr($this->avatarTemp, 0, 4) !== "http") {
+                // delete the old image
+                @unlink(/*$this->getUploadRootDir().'/'.*/$this->avatarTemp);
+            }
+            // clear the temp image path
+            $this->avatarTemp = null;
+        }
+
+        $this->getAvatarFile()->move(
+            $this->getUploadRootDir(),
+            $this->avatar_name
+        );
+
+        // Clean up the file property as you won't need it anymore
+        $this->avatar_file = null;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getToken()
+    {
+        return $this->token;
+    }
+
+    /**
+     * @param mixed $token
+     */
+    public function setToken($token)
+    {
+        $this->token = $token;
+    }
+
+
 }
+

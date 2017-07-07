@@ -76,7 +76,7 @@ class News
     /**
      * @Gedmo\Slug(fields={"title"})
      * @ORM\Column(length=128, unique=true)
-     * @ODM\Field(type="string") @@ODM\UniqueIndex(order="asc")
+     * @ODM\Field(type="string") @ODM\UniqueIndex(order="asc")
      */
     private $slug;
 

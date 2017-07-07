@@ -31,13 +31,13 @@
                 <div class="nk-box-2 bg-dark-2" style="height:auto">
                     {{ form_start(form, {'method': 'POST', 'action': path('fos_user_profile_edit')}) }}
                     {#{{ form_widget(form) }}#}
-                    <div class="form-group row">
+                    {#<div class="form-group row">
                         {{ form_label(form.username, '', { 'label_attr': {'class': 'col-lg-2 col-md-2 col-sm-2 control-label'} }) }}
                         <div class="col-lg-8 col-md-8 col-sm-8">
                             {{ form_widget(form.username, { 'attr': {'class': 'form-control', 'placeholder': '' } }) }}
                             {{ form_errors(form.username) }}
                         </div>
-                    </div>
+                    </div>#}
                     <div class="form-group row">
                         {{ form_label(form.email, '', { 'label_attr': {'class': 'col-lg-2 col-md-2 col-sm-2 control-label'} }) }}
                         <div class="col-lg-8 col-md-8 col-sm-8">
@@ -45,13 +45,13 @@
                             {{ form_errors(form.email) }}
                         </div>
                     </div>
-                    <div class="form-group row">
+                    {#<div class="form-group row">
                         {{ form_label(form.current_password, '', { 'label_attr': {'class': 'col-lg-2 col-md-2 col-sm-2 control-label'} }) }}
                         <div class="col-lg-8 col-md-8 col-sm-8">
                             {{ form_widget(form.current_password, { 'attr': {'class': 'form-control', 'placeholder': '' } }) }}
                             {{ form_errors(form.current_password) }}
                         </div>
-                    </div>
+                    </div>#}
                     <div class="form-group row">
                         {{ form_label(form.plainPassword.first, '', { 'label_attr': {'class': 'col-lg-2 col-md-2 col-sm-2 control-label'} }) }}
                         <div class="col-lg-8 col-md-8 col-sm-8">
@@ -64,6 +64,13 @@
                         <div class="col-lg-8 col-md-8 col-sm-8">
                             {{ form_widget(form.plainPassword.second, { 'attr': {'class': 'form-control', 'placeholder': '' } }) }}
                             {{ form_errors(form.plainPassword.second) }}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        {{ form_label(form.avatar_file, '', { 'label_attr': {'class': 'col-lg-2 col-md-2 col-sm-2 control-label'} }) }}
+                        <div class="col-lg-8 col-md-8 col-sm-8">
+                            {{ form_widget(form.avatar_file, { 'attr': {'class': 'form-control', 'placeholder': '' } }) }}
+                            {{ form_errors(form.avatar_file) }}
                         </div>
                     </div>
 

@@ -21,3 +21,14 @@ services:
         class: Tyras\CoreBundle\Twig\ResumExtension
         tags:
           - { name: twig.extension }
+
+    doctrine_mongo_db_param_converter:
+        class: Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\DoctrineParamConverter
+        arguments: [ '@doctrine_mongodb' ]
+        tags:
+          - { name: request.param_converter, converter: doctrine.odm }
+
+    app.form.registration:
+        class: Tyras\UserBundle\Form\ProfileFormType
+        tags:
+          - { name: form.type, alias: app_user_profile }

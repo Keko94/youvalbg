@@ -89,6 +89,9 @@ fos_user:
     registration:
       confirmation:
         enabled:  false
+    profile:
+      form:
+        type: Tyras\UserBundle\Form\ProfileFormType
 
 hwi_oauth:
   connect:
@@ -153,11 +156,13 @@ stof_doctrine_extensions:
 
 vich_uploader:
     db_driver: mongodb # or mongodb or propel or phpcr
-
     mappings:
       ticket_message_attachment:
         uri_prefix:         /attachment
-        upload_destination: "%kernel.root_dir%/../var/uploads/attachment/"
+        upload_destination: "%kernel.root_dir%/../web/uploads/attachment"
+      image_gallery:
+        uri_prefix:         /gallery
+        upload_destination: "%kernel.root_dir%/../web/uploads/gallery"
 
 # Configuration discutea forum
 discutea_forum:
@@ -176,12 +181,17 @@ doctrine_mongodb:
     connections:
         default:
             server: "mongodb://localhost:27017"
-            options: {}
+            options:
     default_database: tyras_db
     document_managers:
         default:
             auto_mapping: true
             mappings:
+              TyrasCoreBundle:
+                type: annotation
+                dir: %kernel.root_dir%/../src/Tyras/CoreBundle/Entity
+                prefix: Tyras\CoreBundle\Entity
+                is_bundle: false
               TyrasNewsBundle:
                 type: annotation
                 dir: %kernel.root_dir%/../src/Tyras/NewsBundle/Entity
@@ -191,4 +201,9 @@ doctrine_mongodb:
                 type: annotation
                 dir: %kernel.root_dir%/../src/Tyras/UserBundle/Entity
                 prefix: Tyras\UserBundle\Entity
+                is_bundle: false
+              DForumBundle:
+                type: annotation
+                dir: %kernel.root_dir%/../vendor/discutea/forum-bundle/Discutea/DForumBundle/Entity
+                prefix: Discutea\DForumBundle\Entity
                 is_bundle: false

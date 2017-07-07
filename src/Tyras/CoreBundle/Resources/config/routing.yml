@@ -5,3 +5,7 @@ tyras_core_homepage:
 tyras_core_gallery:
   path:     /gallery
   defaults: { _controller: TyrasCoreBundle:Core:gallery }
+
+tyras_core_upload_gallery:
+  path:     /upload
+  defaults: { _controller: TyrasCoreBundle:Core:upload }
