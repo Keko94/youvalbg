@@ -13,7 +13,8 @@ class NewsController extends Controller
 {
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        //$em = $this->getDoctrine()->getManager();
+        $em = $this->get('doctrine_mongodb')->getManager();
         $listNews = $em->getRepository('TyrasNewsBundle:News')->findPublishedNews();
 
         return $this->render('TyrasNewsBundle:News:index.html.twig', array('listNews' => $listNews));
@@ -21,7 +22,8 @@ class NewsController extends Controller
 
     public function viewAction($id, $slug)
     {
-        $em  = $this->getDoctrine()->getManager();
+        //$em  = $this->getDoctrine()->getManager();
+        $em = $this->get('doctrine_mongodb')->getManager();
 
         $news = $em->getRepository('TyrasNewsBundle:News')->find($id);
 
@@ -45,7 +47,8 @@ class NewsController extends Controller
 
         if ($req->isMethod('POST') && $form->handleRequest($req)->isValid())
         {
-            $em  = $this->getDoctrine()->getManager();
+            //$em  = $this->getDoctrine()->getManager();
+            $em = $this->get('doctrine_mongodb')->getManager();
             $em->persist($news);
             $em->flush();
 
@@ -57,7 +60,8 @@ class NewsController extends Controller
 
     public function editAction($id, Request $req)
     {
-        $em = $this->getDoctrine()->getManager();
+        //$em = $this->getDoctrine()->getManager();
+        $em = $this->get('doctrine_mongodb')->getManager();
         $news = $em->getRepository('TyrasNewsBundle:News')->find($id);
 
         if (null === $news)
@@ -75,7 +79,8 @@ class NewsController extends Controller
 
     public function deleteAction($id, Request $req)
     {
-        $em = $this->getDoctrine()->getManager();
+        //$em = $this->getDoctrine()->getManager();
+        $em = $this->get('doctrine_mongodb')->getManager();
         $news = $em->getRepository('TyrasNewsBundle:News')->find($id);
 
         if (null === $news)
@@ -94,7 +99,8 @@ class NewsController extends Controller
 
     public function listAdminAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        //$em = $this->getDoctrine()->getManager();
+        $em = $this->get('doctrine_mongodb')->getManager();
         $listNews = $em->getRepository('TyrasNewsBundle:News')->findAll();
 
         return $this->render('TyrasNewsBundle:News:list.html.twig', array('listNews' => $listNews));
@@ -102,7 +108,8 @@ class NewsController extends Controller
 
     public function listAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
+        //$em = $this->getDoctrine()->getManager();
+        $em = $this->get('doctrine_mongodb')->getManager();
         //$listNews = $em->getRepository('TyrasNewsBundle:News')->findBy(array('enabled' => true), array('date' => 'DESC'));
         $queryListNews = $em->getRepository('TyrasNewsBundle:News')->findPublishedNews('query');
         $paginator  = $this->get('knp_paginator');
@@ -116,11 +123,11 @@ class NewsController extends Controller
 
     public function newsWidgetAction()
     {
-        $em = $this->getDoctrine()->getManager();
-        //$dm = $this->get('doctrine_mongodb')->getManager();
+        //$em = $this->getDoctrine()->getManager();
+        $em = $this->get('doctrine_mongodb')->getManager();
 
+        //$listNews = $em->getRepository('TyrasNewsBundle:News')->findBy(array('enabled' => true), array('date' => 'DESC'), 4, 0); //4 dernières news
         $listNews = $em->getRepository('TyrasNewsBundle:News')->findBy(array('enabled' => true), array('date' => 'DESC'), 4, 0); //4 dernières news
-        //$listNews = $dm->getRepository('TyrasNewsBundle:News')->findBy(array('enabled' => true), array('date' => 'DESC'), 4, 0); //4 dernières news
 
         return $this->render('TyrasNewsBundle:News:news-widget.html.twig', array('listNews' => $listNews));
     }

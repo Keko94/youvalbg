@@ -1,0 +1,13 @@
+services:
+    app.admin.user:
+        class: Tyras\UserBundle\Admin\UserAdmin
+        tags:
+            - { name: sonata.admin, manager_type: doctrine_mongodb, group: "Content", label: "User" }
+        arguments:
+            - ~
+            - Tyras\UserBundle\Entity\User
+            - ~
+        calls:
+            - [ setTranslationDomain, [TyrasUserBundle] ]
+            - [ setUserManager, ['@fos_user.user_manager'] ]
+        public: true

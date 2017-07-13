@@ -57,16 +57,18 @@
                                 </a>
                                 <div class="nk-gallery-item-description">
                                     <h4>{{ image.desc }} - <i style="font-size:14px">{{ image.owner.username }}</i></h4>
-                                    {#{{ 2.58975|rating }}#}
-                                    {% if forms[loop.index0] is defined %}
-                                        {{ form(forms[loop.index0].createView) }}
-                                        {#{{ form_start(form, {'attr': {'id': image.id, 'name': 'form'~image.id }}) }}
-                                        {{ form_row(form.note) }}
-                                        {{ form_widget(form.imageId, {'value' : image.id}) }}
-                                        {{ form_rest(form) }}
-                                        {{ form_end(form) }}#}
-                                    {% else %}
+                                    {% if image.stars > 0 %}
                                         {{ (image.stars / (image.usersVoted | length)) | rating }} {{ image.usersVoted | length }} voters
+                                    {% endif %}
+                                    {% if forms[loop.index0] is defined and image.isUserVoted(app.user) == false %}
+                                        {%  set myForm = forms[loop.index0].createView %}
+                                        {#{{ form(forms[loop.index0].createView) }}#}
+                                        {{ form_start(myForm, {'attr': {'id': 'form'~image.id, 'name': 'form'~image.id }}) }}
+                                        {{ form_row(myForm.note) }}
+                                        {{ form_widget(myForm.imageId, {'value' : image.id}) }}
+                                        {{ form_rest(myForm) }}
+                                        {{ form_end(myForm) }}
+                                    {#{% else %}#}
                                     {% endif %}
                                 </div>
                             </div>

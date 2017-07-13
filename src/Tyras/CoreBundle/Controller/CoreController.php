@@ -32,6 +32,7 @@ class CoreController extends Controller
 
         foreach ($gallery as $k => $image)
         {
+            unset($noteForm[$k]);
             if (!$image->isUserVoted($currentUser)) {
                 $noteForm[$k] = $this->createFormBuilder()
                     ->add('note', RatingType::class, array('label' => false))

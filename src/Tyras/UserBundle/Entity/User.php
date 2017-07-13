@@ -104,10 +104,19 @@ class User extends BaseUser implements \Hackzilla\Bundle\TicketBundle\Model\User
 
     protected $token;
 
+    /**
+     *  @var string
+     *
+     * @ORM\Column(name="created_at", type="datetime")
+     * @ODM\Field(type="date")
+     */
+    protected $created_at;
+
 
     public function __construct()
     {
         parent::__construct();
+        $this->created_at = new \DateTime();
     }
 
     /**
@@ -399,6 +408,23 @@ class User extends BaseUser implements \Hackzilla\Bundle\TicketBundle\Model\User
     {
         $this->token = $token;
     }
+
+    /**
+     * @return string
+     */
+    public function getCreatedAt()
+    {
+        return $this->created_at;
+    }
+
+    /**
+     * @param string $created_at
+     */
+    public function setCreatedAt($created_at)
+    {
+        $this->created_at = $created_at;
+    }
+
 
 
 }

@@ -8,7 +8,9 @@ $baseDir = dirname($vendorDir);
 return array(
     'blackknight467\\StarRatingBundle' => array($vendorDir . '/blackknight467/star-rating-bundle'),
     'Unirest\\' => array($vendorDir . '/mashape/unirest-php/src'),
+    'Twig_Extensions_' => array($vendorDir . '/twig/extensions/lib'),
     'Twig_' => array($vendorDir . '/twig/twig/lib'),
+    'Sonata\\DoctrineMongoDBAdminBundle' => array($vendorDir . '/sonata-project/doctrine-mongodb-admin-bundle'),
     'SensioLabs\\Security' => array($vendorDir . '/sensiolabs/security-checker'),
     'ProxyManager\\' => array($vendorDir . '/ocramius/proxy-manager/src'),
     'PHPSQLParser\\' => array($vendorDir . '/greenlion/php-sql-parser/src'),

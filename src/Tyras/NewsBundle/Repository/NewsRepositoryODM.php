@@ -15,15 +15,15 @@ class NewsRepositoryODM extends DocumentRepository
 {
     public function findPublishedNews($resType = 'result')
     {
-        $qb = $this->createQueryBuilder('n');
+        $qb = $this->createQueryBuilder('News');
 
-        $qb->where('n.enabled = true')
-            ->andWhere('n.date <= CURRENT_TIMESTAMP()')
-            ->orderBy('n.date', 'DESC');
+        $qb->field('enabled')->equals(true)
+            ->field('date')->lte(new \Datetime())
+            ->sort('date', 'desc');
 
 
         if ($resType == 'result'){
-            $qb->setMaxResults(5);
+            $qb->limit(5);
             return $qb->getQuery()->getResult();
         }
         else

@@ -1,0 +1,12 @@
+services:
+    app.admin.news:
+        class: Tyras\NewsBundle\Admin\NewsAdmin
+        tags:
+            - { name: sonata.admin, manager_type: doctrine_mongodb, group: "Content", label: "News" }
+        arguments:
+            - ~
+            - Tyras\NewsBundle\Entity\News
+            - ~
+        calls:
+            - [ setTranslationDomain, [TyrasUserBundle] ]
+        public: true
