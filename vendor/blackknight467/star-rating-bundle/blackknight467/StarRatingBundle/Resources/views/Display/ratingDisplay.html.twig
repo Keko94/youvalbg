@@ -1,0 +1,5 @@
+<div class="rating">
+    {% for i in 1..max %}
+        <div class="{% if i <=roundDown %}star-full{% elseif i == roundUp and roundDown!=roundUp %} {%if fraction==1%}star-full{%elseif fraction==0.5%}star-half{%else%}star-empty{%endif%}{%else%}star-empty{% endif %} {{ starSize }}"></div>
+    {% endfor %}
+</div>

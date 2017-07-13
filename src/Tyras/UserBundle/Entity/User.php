@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="Tyras\UserBundle\Repository\UserRepository")
  * @ORM\HasLifecycleCallbacks
- * @ODM\Document(repositoryClass="Tyras\UserBundle\Repository\UserRepositoryODB")
+ * @ODM\Document(repositoryClass="Tyras\UserBundle\Repository\UserRepositoryODB", collection="users")
  * @ODM\HasLifecycleCallbacks
  */
 class User extends BaseUser implements \Hackzilla\Bundle\TicketBundle\Model\UserInterface
@@ -26,7 +26,7 @@ class User extends BaseUser implements \Hackzilla\Bundle\TicketBundle\Model\User
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @ODM\Id(strategy="INCREMENT", type="int")
+     * @ODM\Id(strategy="CUSTOM", type="int", options={"class"="Tyras\UserBundle\Generator\Generator"})
      */
     protected $id;
 

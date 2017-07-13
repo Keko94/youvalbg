@@ -71,8 +71,10 @@
                         <div class="col-lg-8 col-md-8 col-sm-8">
                             {{ form_widget(form.avatar_file, { 'attr': {'class': 'form-control', 'placeholder': '' } }) }}
                             {{ form_errors(form.avatar_file) }}
+                            <img src="{{ app.user.avatar }}" alt="" style="max-width: 180px;margin-top: 5px;">
                         </div>
                     </div>
+
 
                     {{ form_rest(form) }}
 

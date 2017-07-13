@@ -259,6 +259,13 @@ class ComposerStaticInitc8d2b166072c570b7c11b21184345489
     );
 
     public static $prefixesPsr0 = array (
+        'b' => 
+        array (
+            'blackknight467\\StarRatingBundle' => 
+            array (
+                0 => __DIR__ . '/..' . '/blackknight467/star-rating-bundle',
+            ),
+        ),
         'U' => 
         array (
             'Unirest\\' => 

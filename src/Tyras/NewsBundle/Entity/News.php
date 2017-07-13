@@ -21,7 +21,7 @@ class News
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @ODM\Id
+     * @ODM\Id(strategy="INCREMENT", type="int")
      */
     private $id;
 

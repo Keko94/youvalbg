@@ -36,7 +36,8 @@
         "vich/uploader-bundle": "^1.4",
         "discutea/forum-bundle": "^1.0",
         "doctrine/mongodb-odm": "^1.1.5",
-        "doctrine/mongodb-odm-bundle": "^3.0"
+        "doctrine/mongodb-odm-bundle": "^3.0",
+        "blackknight467/star-rating-bundle": "^2.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
@@ -69,5 +70,11 @@
             "file": "app/config/parameters.yml"
         },
         "branch-alias": null
+    },
+    "repositories": {
+        "blackknight467/star-rating-bundle": {
+            "type": "vcs",
+            "url": "https://github.com/Keko94/StarRatingBundle"
+        }
     }
 }

@@ -36,4 +36,17 @@ class UserController extends Controller
 
         return $this->render('TyrasUserBundle:Default:register.html.twig');
     }
+
+    /**
+     * Lists all Users.
+     *
+     */
+    public function indexAction()
+    {
+        $userManager = $this->get('fos_user.user_manager');
+        $users = $userManager->findUsers();
+        return $this->render('TyrasUserBundle:Default:users.html.twig', array(
+            'users' => $users,
+        ));
+    }
 }

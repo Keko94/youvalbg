@@ -1,0 +1,145 @@
+{% set page = 'admin_listusers' %}
+{% set cat = 'admin' %}
+{% set subcat = 'admin_users' %}
+
+{% extends "::theme.html.twig" %}
+
+{% block content %}
+
+    <!-- START: Breadcrumbs -->
+    <div class="nk-gap-1"></div>
+    <div class="container">
+        <ul class="nk-breadcrumbs">
+
+
+            <li><a href="{{ path('tyras_core_homepage') }}">Home</a></li>
+
+
+            <li>
+                <span class="fa fa-angle-right"></span>
+            </li>
+
+            <li><a href="#">Admin</a></li>
+
+
+            <li>
+                <span class="fa fa-angle-right"></span>
+            </li>
+
+            <li><a href="#">Users</a></li>
+
+
+            <li>
+                <span class="fa fa-angle-right"></span>
+            </li>
+
+            <li>
+                <span>Users list</span>
+            </li>
+
+        </ul>
+    </div>
+    <div class="nk-gap-1"></div>
+    <!-- END: Breadcrumbs -->
+
+    <div class="container">
+        <div class="row equal-height vertical-gap">
+            <div class="col-lg-8">
+                {#<div class="btn-group">#}
+                {#<a href="{{ path('hackzilla_ticket', {'state': 'STATUS_OPEN'|trans}) }}"#}
+                {#class="nk-btn nk-btn-rounded nk-btn-color-main-3 {{ ticketState != 'STATUS_CLOSED'|trans ? 'active' : '' }}">{{ 'STATUS_OPEN'|trans|upper }}</a>#}
+                {#<a href="{{ path('hackzilla_ticket', {'state': 'STATUS_CLOSED'|trans}) }}"#}
+                {#class="nk-btn nk-btn-rounded nk-btn-color-main-1 {{ ticketState == 'STATUS_CLOSED'|trans ? 'active' : '' }}">{{ 'STATUS_CLOSED'|trans|upper }}</a>#}
+                {#</div>#}
+
+
+                <!-- START: Accordion -->
+                <div class="nk-accordion" id="accordion-1" role="tablist" aria-multiselectable="false">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="accordion-1-1-heading">
+                            <a data-toggle="collapse" data-parent="#accordion-1" href="#accordion-1-1" aria-expanded="true" aria-controls="accordion-1-1">
+                                OPEN TICKETS <span class="panel-heading-arrow fa fa-angle-down"></span>
+                            </a>
+                        </div>
+                        <div id="accordion-1-1" class="panel-collapse collapse show in" role="tabpanel" aria-labelledby="accordion-1-1-heading">
+                            <!-- START: Table -->
+                            <table class="nk-table">
+
+                                <tbody>
+                                <tr>
+                                    <th>{{ knp_pagination_sortable(pagination_open, 'HEADING_SUBJECT'|trans, 't.subject') }}{% if pagination_open.isSorted('t.subject') %}<span class="fa fa-sort"></span>{% endif %}</th>
+                                    <th>{{ knp_pagination_sortable(pagination_open, 'HEADING_PRIORITY'|trans, 't.priority') }}{% if pagination_open.isSorted('t.priority') %}<span class="fa fa-sort"></span>{% endif %}</th>
+                                    <th>{{ knp_pagination_sortable(pagination_open, 'HEADING_STATUS'|trans, 't.status') }}{% if pagination_open.isSorted('t.status') %}<span class="fa fa-sort"></span>{% endif %}</th>
+                                    <th>{{ knp_pagination_sortable(pagination_open, 'HEADING_MODIFIED'|trans, 't.lastMessage') }}{% if pagination_open.isSorted('t.lastMessage') %}<span class="fa fa-sort"></span>{% endif %}</th>
+                                </tr>
+                                {% for entity in pagination_open %}
+                                    <tr>
+                                        <td><a href="{{ path('hackzilla_ticket_show', { 'ticketId': entity.id }) }}">{{ entity.subject }}</a></td>
+                                        <td>{{ macros.priority_btn(entity.priority, entity.priorityString|trans, true) }}</td>
+                                        <td>{{ macros.status_btn(entity.status, entity.statusString|trans, true) }}</td>
+                                        <td>{% if entity.lastMessage %}{{ entity.lastMessage|date('LABEL_DATE_TIME_FORMAT'|trans) }}{% endif %}</td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="4">{{ 'MESSAGE_NO_TICKETS'|trans }}.</td>
+                                    </tr>
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+                            <!-- END: Table -->
+                            <div class="nk-gap-1"></div>
+                            {{ knp_pagination_render(pagination_open, 'pagination.html.twig') }}
+                            <div class="nk-gap-1"></div>
+                        </div>
+                    </div>
+
+                    <div class="nk-gap-1"></div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="accordion-1-2-heading">
+                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion-1" href="#accordion-1-2" aria-expanded="true" aria-controls="accordion-1-2">
+                                CLOSED TICKETS <span class="panel-heading-arrow fa fa-angle-down"></span>
+                            </a>
+                        </div>
+                        <div id="accordion-1-2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="accordion-1-2-heading">
+                            <!-- START: Table -->
+                            <table class="nk-table">
+
+                                <tbody>
+                                <tr>
+                                    <th>{{ knp_pagination_sortable(pagination_open, 'HEADING_SUBJECT'|trans, 't.subject') }}{% if pagination_open.isSorted('t.subject') %}<span class="fa fa-sort"></span>{% endif %}</th>
+                                    <th>{{ knp_pagination_sortable(pagination_open, 'HEADING_PRIORITY'|trans, 't.priority') }}{% if pagination_open.isSorted('t.priority') %}<span class="fa fa-sort"></span>{% endif %}</th>
+                                    <th>{{ knp_pagination_sortable(pagination_open, 'HEADING_STATUS'|trans, 't.status') }}{% if pagination_open.isSorted('t.status') %}<span class="fa fa-sort"></span>{% endif %}</th>
+                                    <th>{{ knp_pagination_sortable(pagination_open, 'HEADING_MODIFIED'|trans, 't.lastMessage') }}{% if pagination_open.isSorted('t.lastMessage') %}<span class="fa fa-sort"></span>{% endif %}</th>
+                                </tr>
+                                {% for entity in pagination_closed %}
+                                    <tr>
+                                        <td><a href="{{ path('hackzilla_ticket_show', { 'ticketId': entity.id }) }}">{{ entity.subject }}</a></td>
+                                        <td>{{ macros.priority_btn(entity.priority, entity.priorityString|trans, true) }}</td>
+                                        <td>{{ macros.status_btn(entity.status, entity.statusString|trans, true) }}</td>
+                                        <td>{% if entity.lastMessage %}{{ entity.lastMessage|date('LABEL_DATE_TIME_FORMAT'|trans) }}{% endif %}</td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="4">{{ 'MESSAGE_NO_TICKETS'|trans }}.</td>
+                                    </tr>
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+                            <!-- END: Table -->
+                            <div class="nk-gap-1"></div>
+                            {{ knp_pagination_render(pagination_closed, 'pagination.html.twig') }}
+                            <div class="nk-gap-1"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END: Accordion -->
+
+            </div>
+            {% include 'sidebar.html.twig' %}
+        </div>
+    </div>
+
+{% endblock %}

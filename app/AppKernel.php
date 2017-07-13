@@ -27,6 +27,7 @@ class AppKernel extends Kernel
             new Hackzilla\Bundle\TicketBundle\HackzillaTicketBundle(),
             new Discutea\DForumBundle\DForumBundle(),
             new Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle(),
+            new blackknight467\StarRatingBundle\StarRatingBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

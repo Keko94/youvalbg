@@ -4,6 +4,7 @@
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/vendor/analog/analog" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/behat/transliterator" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/blackknight467/star-rating-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/ci/restclientbundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/circle/doctrine-rest-driver" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
@@ -80,6 +81,7 @@
         <CLASSES>
           <root url="file://$MODULE_DIR$/vendor/analog/analog" />
           <root url="file://$MODULE_DIR$/vendor/behat/transliterator" />
+          <root url="file://$MODULE_DIR$/vendor/blackknight467/star-rating-bundle" />
           <root url="file://$MODULE_DIR$/vendor/ci/restclientbundle" />
           <root url="file://$MODULE_DIR$/vendor/circle/doctrine-rest-driver" />
           <root url="file://$MODULE_DIR$/vendor/composer" />
@@ -140,6 +142,7 @@
         <SOURCES>
           <root url="file://$MODULE_DIR$/vendor/analog/analog" />
           <root url="file://$MODULE_DIR$/vendor/behat/transliterator" />
+          <root url="file://$MODULE_DIR$/vendor/blackknight467/star-rating-bundle" />
           <root url="file://$MODULE_DIR$/vendor/ci/restclientbundle" />
           <root url="file://$MODULE_DIR$/vendor/circle/doctrine-rest-driver" />
           <root url="file://$MODULE_DIR$/vendor/composer" />

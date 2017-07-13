@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'blackknight467\\StarRatingBundle' => array($vendorDir . '/blackknight467/star-rating-bundle'),
     'Unirest\\' => array($vendorDir . '/mashape/unirest-php/src'),
     'Twig_' => array($vendorDir . '/twig/twig/lib'),
     'SensioLabs\\Security' => array($vendorDir . '/sensiolabs/security-checker'),

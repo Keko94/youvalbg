@@ -104,6 +104,14 @@ class Gallery
     private $desc;
 
     /**
+     * @var float
+     *
+     * @ORM\Column(name="stars", type="float")
+     * @ODM\Field(type="float")
+     */
+    private $stars = 0;
+
+    /**
      * @var int
      */
     private $token;
@@ -255,6 +263,11 @@ class Gallery
         $this->users_voted->removeElement($user_voted);
     }
 
+    public function isUserVoted($user_voted)
+    {
+        return $this->users_voted->contains($user_voted);
+    }
+
     /**
      * @return \DateTime
      */
@@ -301,6 +314,22 @@ class Gallery
     public function setOwner($owner)
     {
         $this->owner = $owner;
+    }
+
+    /**
+     * @return float
+     */
+    public function getStars()
+    {
+        return $this->stars;
+    }
+
+    /**
+     * @param float $stars
+     */
+    public function setStars($stars)
+    {
+        $this->stars = $stars;
     }
 
 
